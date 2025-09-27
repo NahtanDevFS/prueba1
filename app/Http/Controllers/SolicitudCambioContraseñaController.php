@@ -67,8 +67,6 @@ class SolicitudCambioContraseñaController extends Controller
             'telefono' => 'required|string|max:255',
         ]);
 
-        SolicitudCambioContrasena::create($validatedData);
-
         $solicitud->update($validatedData);
 
         return redirect()->route('solicitud_cambio_contraseñas.index')->with('success', 'Solicitud actualizada exitosamente.');

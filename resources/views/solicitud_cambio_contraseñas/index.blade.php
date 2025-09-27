@@ -2,9 +2,16 @@
 
 @section('content')
 <h1>Solicitudes de Cambio de Contraseña</h1>
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div class="d-flex justify-content-between mb-3">
     <div>
         <a href="{{ route('solicitud_cambio_contraseñas.create') }}" class="btn btn-primary">Agregar estudiante</a>
+        <a href="{{ route('solicitud_cambio_contraseñas.export.exportPdf') }}" class="btn btn-danger">Export to PDF</a>
+        <a href="{{ route('solicitud_cambio_contraseñas.export.exportExcel') }}" class="btn btn-success">Export to Excel</a>
     </div>
 </div>
 <form action="{{ route('solicitud_cambio_contraseñas.index') }}" method="get">

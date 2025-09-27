@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SolicitudCambioContraseña extends Model
+class SolicitudCambioContrasena extends Model
 {
     use HasFactory;
+
+    protected $table = 'solicitud_cambio_contraseñas';
 
     protected $fillable = [
         'nombre',

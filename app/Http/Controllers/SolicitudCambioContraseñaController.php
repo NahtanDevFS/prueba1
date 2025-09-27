@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\SolicitudCambioContrasena;
 use App\Exports\SolicitudesExport;
 use Maatwebsite\Excel\Facades\Excel;
-use Barryvdh\DomPDF\Facade\Pdf; // Importante para PDF
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SolicitudCambioContraseñaController extends Controller
 {
@@ -27,12 +27,15 @@ class SolicitudCambioContraseñaController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all()); // (dump and die)
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'password' => 'required|string|min:4|confirmed',
-            'facultad' => 'required|string|max:255',
+            'rol' => 'required|string|in:estudiante,profesor',
+            'facultad' => 'required|string|in:sistemas,psicologia,arquitectura',
             'carnet' => 'required|string|max:50|unique:solicitud_cambio_contraseñas',
+            'dpi' => 'required|string|max:255',
+            'nit' => 'nullable|string|max:255',
+            'email' => 'required|email|max:255',
+            'telefono' => 'required|string|max:255',
         ]);
 
         SolicitudCambioContrasena::create($validatedData);
@@ -54,16 +57,17 @@ class SolicitudCambioContraseñaController extends Controller
     {
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'password' => 'nullable|string|min:4|confirmed',
-            'facultad' => 'required|string|max:255',
+            'rol' => 'required|string|in:estudiante,profesor',
+            'facultad' => 'required|string|in:sistemas,psicologia,arquitectura',
             'estado_solicitud' => 'required|string|in:pendiente,actualizada',
-            'carnet' => 'required|string|max:50|unique:solicitud_cambio_contraseñas,carnet,' . $solicitud->id
+            'carnet' => 'required|string|max:50|unique:solicitud_cambio_contraseñas,carnet,' . $solicitud->id,
+            'dpi' => 'required|string|max:255',
+            'nit' => 'nullable|string|max:255',
+            'email' => 'required|email|max:255',
+            'telefono' => 'required|string|max:255',
         ]);
 
-        //si no se envió una nueva contraseña, no se actualiza
-    if (empty($validatedData['password'])) {
-        unset($validatedData['password']);
-    }
+        SolicitudCambioContrasena::create($validatedData);
 
         $solicitud->update($validatedData);
 

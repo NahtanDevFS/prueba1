@@ -11,11 +11,15 @@ class SolicitudCambioContrasena extends Model
 
     protected $table = 'solicitud_cambio_contraseñas';
 
-    protected $fillable = [
+     protected $fillable = [
         'nombre',
-        'password',
+        'rol',
         'facultad',
         'carnet',
+        'dpi',
+        'nit',
+        'email',
+        'telefono',
         'estado_solicitud',
     ];
 }

@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('solicitud_cambio_contraseñas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('password');
-            $table->string('facultad');
+            $table->enum('rol', ['estudiante', 'profesor']);
+            $table->enum('facultad', ['sistemas', 'psicologia', 'arquitectura']);
             $table->string('carnet');
+            $table->string('dpi');
+            $table->string('nit')->nullable();
+            $table->string('email');
+            $table->string('telefono');
             $table->string('estado_solicitud')->default('pendiente');
             $table->timestamps();
         });
